@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 
@@ -18,6 +19,10 @@ int main(void) {
   memset(&csocket_info, 0, sizeof(csocket_info)); // Same here
 
   socklen_t csocket_info_len = sizeof(csocket_info); // For later use in the accept loop
+
+  // Defines the message to be sent and its length
+  const char* msg = "Hello from the server!";
+  const size_t msg_len = strlen(msg);
 
   // First, a socket is created, and the file descriptor is returned
   socket_fd = socket(PF_INET, SOCK_STREAM, 0);
@@ -56,7 +61,8 @@ int main(void) {
 
   // Loop to handle incoming connections
   while(1) {
-
+    
+    // Accept an incoming connection
     csocket_fd = accept(socket_fd, (struct sockaddr *)&csocket_info, &csocket_info_len);
 
     if(csocket_fd == -1) {
@@ -67,7 +73,19 @@ int main(void) {
 
     } 
 
+    // Send the message to the client
+    int bytes_sent = send(csocket_fd, msg, msg_len + 1, 0); // msg_len + 1 to include \0 
     
+    if(bytes_sent == -1) {
+
+      perror("Failed to send over the connection!");
+
+      return 1;
+
+    }
+
+    // Close the connection
+    close(csocket_fd);
 
   }
 
