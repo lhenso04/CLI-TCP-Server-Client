@@ -11,10 +11,13 @@ int main(void) {
   // Will hold both the server's, and an incoming client's file descriptors
   int socket_fd, csocket_fd;
 
-  const int socket_port = 8080;
+  const unsigned int socket_port = 8080;
 
-  struct sockaddr_in socket_info;
-  memset(&socket_info, 0, sizeof(socket_info)); // For compatibility
+  struct sockaddr_in socket_info, csocket_info;
+  memset(&socket_info, 0, sizeof(socket_info)); // Ensures padding is set to 0
+  memset(&csocket_info, 0, sizeof(csocket_info)); // Same here
+
+  socklen_t csocket_info_len = sizeof(csocket_info); // For later use in the accept loop
 
   // First, a socket is created, and the file descriptor is returned
   socket_fd = socket(PF_INET, SOCK_STREAM, 0);
@@ -54,7 +57,17 @@ int main(void) {
   // Loop to handle incoming connections
   while(1) {
 
+    csocket_fd = accept(socket_fd, (struct sockaddr *)&csocket_info, &csocket_info_len);
 
+    if(csocket_fd == -1) {
+
+      perror("Failed to accept a new connection!");
+
+      return 1;
+
+    } 
+
+    
 
   }
 
