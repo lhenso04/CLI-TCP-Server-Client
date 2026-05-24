@@ -14,11 +14,10 @@ int main(void) {
 
   const unsigned int socket_port = 8080;
 
-  struct sockaddr_in socket_info, csocket_info;
-  memset(&socket_info, 0, sizeof(socket_info)); // Ensures padding is set to 0
-  memset(&csocket_info, 0, sizeof(csocket_info)); // Same here
+  struct sockaddr_in socket_info;
+  socklen_t socket_info_len = sizeof(socket_info);
 
-  socklen_t csocket_info_len = sizeof(csocket_info); // For later use in the accept loop
+  memset(&socket_info, 0, socket_info_len); // Ensures padding is set to 0
 
   // Defines the message to be sent and its length
   const char* msg = "Hello from the server!";
@@ -40,7 +39,7 @@ int main(void) {
   socket_info.sin_port = htons(socket_port); // Port: 8080
   socket_info.sin_addr.s_addr = htonl(INADDR_LOOPBACK); // Address: 127.0.0.1 (localhost)
   
-  if(bind(socket_fd, (struct sockaddr *)&socket_info, sizeof(socket_info)) == -1) {
+  if(bind(socket_fd, (struct sockaddr *)&socket_info, socket_info_len) == -1) {
 
     perror("Failed to bind the address and port to the socket!");
 
@@ -63,7 +62,7 @@ int main(void) {
   while(1) {
     
     // Accept an incoming connection
-    csocket_fd = accept(socket_fd, (struct sockaddr *)&csocket_info, &csocket_info_len);
+    csocket_fd = accept(socket_fd, (struct sockaddr *)&socket_info, &socket_info_len);
 
     if(csocket_fd == -1) {
 
