@@ -40,8 +40,23 @@ int main(void) {
 
   }
 
-  // Have the socket start listening on the bound address and port
-  
+  // Have the socket start listening on the bound address and port 
+  if(listen(socket_fd, 1) == -1) {
+
+    perror("Failed to start listening!");
+
+    return 1;
+
+  }
+
+  printf("Now listening on port %d...", socket_port); 
+
+  // Loop to handle incoming connections
+  while(1) {
+
+
+
+  }
 
   return 0;
 
