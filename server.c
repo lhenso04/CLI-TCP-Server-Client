@@ -1,5 +1,6 @@
+// A very simple TCP server implementation written in the C programming language.
 // Written to get a better grasp of sockets, and socket programming in C.
-// Written by LH May '26
+// Written by LH May '26.
 
 #include <stdio.h>
 #include <string.h>
