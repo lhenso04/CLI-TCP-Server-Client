@@ -12,7 +12,7 @@ int main(void) {
   // Will hold both the server's, and an incoming client's file descriptors
   int socket_fd, csocket_fd;
 
-  const unsigned int socket_port = 8080;
+  const uint16_t socket_port = 8080;
 
   struct sockaddr_in socket_info;
   socklen_t socket_info_len = sizeof(socket_info);
@@ -56,7 +56,7 @@ int main(void) {
 
   }
 
-  printf("Now listening on port %d... (Press Ctrl + C to quit)\n", socket_port); 
+  printf("Now listening on port %u... (Press Ctrl + C to quit)\n", socket_port); 
 
   // Loop to handle incoming connections
   while(1) {
