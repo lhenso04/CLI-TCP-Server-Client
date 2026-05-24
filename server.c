@@ -57,7 +57,7 @@ int main(void) {
 
   }
 
-  printf("Now listening on port %d...", socket_port); 
+  printf("Now listening on port %d... (Press Ctrl + C to quit)\n", socket_port); 
 
   // Loop to handle incoming connections
   while(1) {
@@ -73,6 +73,10 @@ int main(void) {
 
     } 
 
+    puts("Accepting a new connection...");
+
+    puts("Connection established! Sending the message...");
+
     // Send the message to the client
     int bytes_sent = send(csocket_fd, msg, msg_len + 1, 0); // msg_len + 1 to include \0 
     
@@ -84,8 +88,12 @@ int main(void) {
 
     }
 
+    puts("Message sent! Closing the connection...");
+
     // Close the connection
     close(csocket_fd);
+
+    puts("Connection closed!");
 
   }
 
