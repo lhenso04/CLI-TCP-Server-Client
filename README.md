@@ -1,9 +1,22 @@
 # A TCP Server and Client Written in C.
 A locally hosted server/client pair written in C utilizing the POSIX socket API, created as part of my first foray into network programming. The server listens on 127.0.0.1:8080. This project is POSIX compliant, and should run on most Linux/UNIX-based machines, as well as WSL on Windows. 
 
-## Compilation
-A Makefile has been included to make this process as easy as possible. Simply ensure that GCC and Make are installed, and then cd into the project's directory and type make to build the binaries, which will be placed in the bins directory.
+## Installation
+Ensure `make` and `gcc` are installed on your system.
+1. Clone the repository:
+   
+   ```
+   $ git clone https://github.com/lhenso04/CLI-TCP-Server-Client.git
+   $ cd CLI-TCP-Server-Client
+   ```
+3. Build the project:
+   ``` $ make ```
 
 ## Usage
-Run both the server (./bins/server) and the client (./bins/client) in seperate terminal windows on the same machine. The client will connect to the server, receive and display a message, and disconnect.
-
+Run the server first, then the client in a separate terminal window.
+1. Start the server:
+   ```$ ./bins/server ```
+3. Start the client:
+  ```$ ./bins/client ``` <br>
+  
+  The client will connect to the server, print the message it receives, and disconnect.
