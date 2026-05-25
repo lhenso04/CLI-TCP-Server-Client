@@ -1,18 +1,22 @@
-TARGET = server
+CC := gcc
+CFLAGS := -Wall -Wextra
 
-TARGET2 = client
+BIN_DIR := bins
+SRC_DIR := src
 
-CC = gcc
+SRCS := $(wildcard $(SRC_DIR)/*.c)
 
-CFLAGS = -Wall
+BINS := $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%, $(SRCS))
 
-all: $(TARGET) $(TARGET2)
+all: $(BIN_DIR) $(BINS)
 
-$(TARGET): server.c
-	$(CC) $(CFLAGS) -o $(TARGET) server.c
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
-$(TARGET2): client.c
-	$(CC) $(CFLAGS) -o $(TARGET2) client.c
+$(BIN_DIR)/%: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(TARGET) $(TARGET2)
+	rm -rf $(BIN_DIR)
+
+.PHONY: clean all
