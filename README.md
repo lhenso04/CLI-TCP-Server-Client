@@ -1,5 +1,5 @@
 # A TCP Server and Client Written in C.
-A locally hosted server/client pair written in C utilizing the POSIX socket API, created as part of my first foray into network programming. The server listens on 127.0.0.1:8080. This project is POSIX compliant, and should run on most Linux/UNIX-based machines, as well as WSL on Windows. 
+A locally hosted server/client pair written in C utilizing the POSIX socket API, created as part of my first foray into network programming. The server listens on 127.0.0.1:8080 (IPv4). This project is POSIX compliant, and should run on most Linux/UNIX-based machines, as well as WSL on Windows. 
 
 ## Installation
 Ensure `make` and `gcc` are installed on your system.
