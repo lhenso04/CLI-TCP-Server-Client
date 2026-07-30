@@ -41,6 +41,8 @@ int main(void) {
   if(connect(client_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
 
     perror("Connection failed!");
+    
+    close(client_fd);
 
     return 1;
 
@@ -54,6 +56,8 @@ int main(void) {
   if(bytes_received == -1) {
 
     perror("Failed to receive the message!");
+
+    close(client_fd);
 
     return 1;
 
